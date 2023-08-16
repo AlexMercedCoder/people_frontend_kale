@@ -66,3 +66,32 @@ export const deleteAction = async ({params}) => {
     // redirect back to the frontend index route
     return redirect('/')
 }
+
+export const signupAction = async ({request}) => {
+    // get the form data
+    const formData = await request.formData()
+    // build out the new user
+    const newUser = {
+        username: formData.get('username'),
+        password: formData.get('password')
+    }
+    // send the new user to our backend API
+    const response = await fetch(`${baseUrl}/signup`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newUser)
+    })
+
+    // check if status is 400 or more
+    if (response.status >= 400) {
+        // alert the details of error
+        alert(response.statusText)
+        // redirect back to the frontend signup route
+        return redirect('/signup')
+    }
+
+    // redirect back to the frontend login route
+    return redirect('/login')
+}
