@@ -9,14 +9,14 @@ import Show from "./pages/Show";
 import Main from "./pages/Main";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import { peopleLoader, personLoader } from "./loaders";
-import { createAction, updateAction, deleteAction, signupAction } from "./actions";
+import { peopleLoader, personLoader, mainLoader } from "./loaders";
+import { createAction, updateAction, deleteAction, signupAction, loginAction } from "./actions";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<App/>}>
-        <Route path="" element={<Main/>}>
+        <Route path="" element={<Main/>} loader={mainLoader}>
             <Route path="signup" element={<Signup/>} action={signupAction}/>
-            <Route path="login" element={<Login/>}/>
+            <Route path="login" element={<Login/>} action={loginAction}/>
         </Route>
         <Route path=":id" element={<Show/>} loader={personLoader}/>
         <Route path="create" action={createAction}/>
